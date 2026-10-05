@@ -4,7 +4,7 @@
 <title>Сайт для мастерской мебели на заказ — кейс</title>
 <meta name="description" content="Кейс: сайт с нуля для мастерской корпусной и мягкой мебели в Ярославле. Десктоп и мобильная версия.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;800&family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Manrope:wght@500;800&family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#161616;--dark:#202020;--light:#f6f5f2;--gray:#e7e6e2;--y:#f9de66;--y2:#fdeb98;--mut:#8c8c8c;--line:rgba(255,255,255,.14)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -121,6 +121,25 @@ section.b{background:var(--bg)}
 .cta p{color:#bfbfbf;font-size:16px;line-height:1.6;margin-bottom:30px;max-width:520px}
 .cta img{width:100%;height:100%;object-fit:cover;object-position:left center}
 .todo{margin-top:22px;font-size:13px;color:#8c8c8c}
+
+/* 10 контакты */
+#contacts{background:radial-gradient(760px 620px at 76% 52%,rgba(249,222,102,.16),transparent 70%),#141414;height:900px}
+#contacts .tx{position:absolute;left:100px;top:0;bottom:0;width:640px;display:flex;flex-direction:column;justify-content:center}
+#contacts .eb{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--y);margin-bottom:34px}
+#contacts h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:82px;line-height:1;letter-spacing:-1px;margin-bottom:60px}
+#contacts h2 i{font-style:normal;color:var(--y)}
+#contacts .r{margin-top:26px}
+#contacts .r small{display:block;font-size:12px;letter-spacing:2.6px;text-transform:uppercase;color:#8d8d8d;margin-bottom:6px}
+#contacts .r a{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;color:#fff;text-decoration:none;border-bottom:1px solid rgba(249,222,102,.45)}
+#contacts .r span{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px}
+#contacts .ph3{position:absolute;right:56px;top:110px;width:640px;height:800px;transform:scale(.84);transform-origin:top right}
+#contacts .p{position:absolute;width:262px;height:566px;border-radius:44px;background:#0a0a0a;padding:9px;box-shadow:0 0 0 2px #4a4a4a inset,0 0 0 1px rgba(249,222,102,.25),0 40px 70px rgba(0,0,0,.65)}
+#contacts .p .s{width:100%;height:100%;border-radius:36px;overflow:hidden;background:#202020}
+#contacts .p .s img{width:100%}
+#contacts .p:after{content:"";position:absolute;top:19px;left:50%;width:76px;height:22px;margin-left:-38px;border-radius:12px;background:#000}
+#contacts .p1{left:0;top:130px;transform:rotate(-14deg) skewY(4deg);z-index:1}
+#contacts .p2{left:190px;top:60px;transform:rotate(8deg) skewY(-3deg);z-index:2}
+#contacts .p3{left:350px;top:170px;transform:rotate(22deg) skewY(-6deg);z-index:3}
 </style></head><body>
 
 <!-- 01 · обложка -->
@@ -232,11 +251,23 @@ section.b{background:var(--bg)}
     <div><b>2</b><span>версии: для компьютера и для телефона</span></div>
     <div><b>6</b><span>шагов от заявки до приёмки показаны клиенту</span></div>
   </div>
-  <div class="cta">
-    <div class="t"><span class="pill">Давайте работать</span><h3>Нужен сайт, который <i>выглядит дорого</i> и приводит заявки?</h3><p>Расскажите о задаче, и мы обсудим структуру, стиль и сроки.</p></div>
-    <img src="assets/level.jpg" alt="">
-  </div>
 </div></section>
+
+<!-- 10 · контакты -->
+<section data-canvas class="b" id="contacts">
+  <div class="tx">
+    <div class="eb">Контакты</div>
+    <h2>Давайте сделаем ваш <i>сайт.</i></h2>
+    <div class="r"><small>Дизайнер</small><span>Татьяна Тагмазян</span></div>
+    <div class="r"><small>Telegram</small><a href="https://t.me/tatiana_tgmzn">@tatiana_tgmzn</a></div>
+    <div class="r"><small>Почта</small><a href="mailto:Tanya51rus@gmail.com">Tanya51rus@gmail.com</a></div>
+  </div>
+  <div class="ph3">
+    <div class="p p1"><div class="s"><img src="assets/m2.jpg" alt=""></div></div>
+    <div class="p p2"><div class="s"><img src="assets/m3.jpg" alt=""></div></div>
+    <div class="p p3"><div class="s"><img src="assets/m1.jpg" alt=""></div></div>
+  </div>
+</section>
 
 <script>
 // неразрывные пробелы: короткие слова клеим к следующему, последние два слова вместе
