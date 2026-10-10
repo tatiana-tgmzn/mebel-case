@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
-<meta name="viewport" content="width=1400">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Сайт для мастерской мебели на заказ — кейс</title>
 <meta name="description" content="Кейс: сайт с нуля для мастерской корпусной и мягкой мебели в Ярославле. Десктоп и мобильная версия.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,8 @@
 html{background:#0d0d0d}
 body{font-family:Montserrat,sans-serif;font-weight:300;color:#fff;-webkit-font-smoothing:antialiased}
 img{display:block}
-section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidden}
+body{overflow-x:clip}
+section[data-canvas]{width:100%;max-width:1400px;margin:0 auto;position:relative;overflow:hidden}
 .pad{padding:100px 80px}
 .d{background:var(--dark)}.d2{background:var(--dark2)}.b{background:var(--bg)}
 .l{background:var(--light);color:var(--ink)}.g{background:var(--gray);color:var(--ink)}
@@ -26,14 +27,16 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 .pill.acc{border-color:rgba(249,222,102,.9);color:var(--y)}
 
 /* 01 обложка: закреплена, сайт в экране листается по скроллу */
-#pin{width:1400px;margin:0 auto;height:5188px;background:#0d0d0d;position:relative}
-#pin #cover{position:sticky;top:0;margin:0;overflow:hidden;height:788px;background:#0d0d0d url(scenes/cover-a-nosite.jpg) center/cover}
-#cover .tl{position:absolute;left:64px;top:56px;display:flex;gap:10px;z-index:3}
-#cover h1{position:absolute;left:64px;top:190px;width:460px;font-family:Manrope,sans-serif;font-weight:800;font-size:76px;line-height:74px;letter-spacing:-1.5px;z-index:3}
+#pin{width:100%;max-width:1400px;margin:0 auto;background:#0d0d0d;position:relative}
+#pin #cover{position:sticky;top:0;margin:0;overflow:hidden;height:788px;background:#0d0d0d}
+#cover .copy{position:absolute;inset:0;z-index:3;pointer-events:none}
+#cover .tl{position:absolute;left:64px;top:56px;display:flex;gap:10px}
+#cover h1{position:absolute;left:64px;top:190px;width:460px;font-family:Manrope,sans-serif;font-weight:800;font-size:76px;line-height:74px;letter-spacing:-1.5px}
 #cover h1 i{font-style:normal;color:var(--y)}
-#cover .sub{position:absolute;left:68px;top:372px;font-size:17px;z-index:3}
-#cover .hint{position:absolute;left:68px;top:430px;font-size:11px;font-weight:400;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.6);z-index:3;transition:opacity .4s}
+#cover .sub{position:absolute;left:68px;top:372px;font-size:17px}
+#cover .hint{position:absolute;left:68px;top:430px;font-size:11px;font-weight:400;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.6);transition:opacity .4s}
 #cover .hint.off{opacity:0}
+#stage{position:absolute;inset:0;background:#0d0d0d url(scenes/cover-a-nosite.jpg) 0 0/1400px 788px no-repeat}
 #scr{position:absolute;left:0;top:0;width:1000px;height:699px;transform-origin:0 0;overflow:hidden;background:#202020;z-index:2;contain:strict;backface-visibility:hidden}
 #scr .strip{width:1000px;will-change:transform;backface-visibility:hidden}
 #scr .strip img{width:1081px;margin-left:-40px;display:block}
@@ -108,20 +111,79 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 #contacts .r small{display:block;font-size:12px;letter-spacing:2.6px;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
 #contacts .r a,#contacts .r span{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:38px;color:var(--ink);text-decoration:none}
 #contacts .r a{border-bottom:1px solid var(--ink)}
+.p3box{position:absolute;inset:0;pointer-events:none}
+.p3.a{left:778px;top:169px;transform:rotate(-14deg)}.p3.b{left:938px;top:110px;transform:rotate(8deg)}.p3.c{left:1072px;top:203px;transform:rotate(22deg)}
 .p3{position:absolute;width:220px;height:476px;border-radius:38px;background:#0a0a0a;border:2px solid #4a4a4a;box-shadow:0 30px 50px rgba(0,0,0,.6)}
 .p3 .s{position:absolute;inset:8px;border-radius:30px;overflow:hidden;background:#fff}
 .p3 .s img{width:100%;height:100%;object-fit:cover;object-position:top}
 .p3:after{content:"";position:absolute;top:16px;left:50%;width:64px;height:19px;margin-left:-32px;border-radius:10px;background:#000}
+
+/* мобильная версия */
+@media (max-width:899px){
+  .pad{padding:56px 20px}
+  .head{flex-direction:column;gap:18px}
+  .head h2,.head.solo h2{width:auto;font-size:30px;line-height:34px;letter-spacing:-.3px}
+  .head p{width:auto;font-size:15px;line-height:24px}
+  /* обложка: текст сверху, сцена с ноутбуком ниже */
+  #pin #cover{height:auto;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+  #cover .copy{position:static;flex:1;padding:22px 20px 20px}
+  #cover .tl{position:static;margin-bottom:28px;flex-wrap:wrap}
+  #cover h1{position:static;width:auto;font-size:58px;line-height:56px;letter-spacing:-1.2px}
+  #cover .sub{position:static;margin-top:14px;font-size:15px}
+  #cover .hint{position:static;margin-top:12px}
+  #stage{position:relative;inset:auto;height:440px;flex:none}
+  /* задача */
+  .cmp{flex-direction:column;gap:18px;margin-top:32px;align-items:stretch}
+  .cmp .col{width:100%}.cmp .cards{width:100%}
+  .cmp .card{height:auto;padding:24px}
+  .cmp .card b{font-size:34px;line-height:38px}
+  .cmp .arrow{padding-top:0;transform:rotate(90deg);align-self:flex-start;margin-left:14px}
+  .cmp .now{width:100%;height:auto;aspect-ratio:1.55}
+  .res{margin-top:36px}.res p{width:auto;font-size:24px;line-height:30px}
+  /* доверие */
+  .story{flex-direction:column;gap:36px;margin-top:32px}
+  .chat,.steps{width:100%}
+  .msg,.msg.me{max-width:88%;font-size:16px;line-height:23px;padding:14px 18px}
+  .call{font-size:15px}
+  .steps b{width:44px}.steps span{font-size:16px;line-height:22px}.steps span i{font-size:19px}
+  /* смыслы */
+  .q4{flex-direction:column;margin-top:32px}.q4 .c{width:100%}
+  /* сайт: окна листаются вбок */
+  .cols3{margin:32px -20px 0;padding:0 20px 8px;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 20px;-webkit-overflow-scrolling:touch}
+  .cols3 .bw{flex:0 0 78vw;width:78vw;scroll-snap-align:start}
+  /* мобильная версия: телефоны листаются вбок */
+  #mob .pad{padding-bottom:56px}
+  #mob .glow{left:-120px;top:180px;width:620px;height:420px}
+  .phones{margin:32px -20px 0;padding:0 20px 8px;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 20px;-webkit-overflow-scrolling:touch}
+  .ph{flex:0 0 240px;width:240px;padding-top:0!important;scroll-snap-align:start}
+  .phone{width:240px;height:520px;border-radius:40px}.phone .s{inset:9px;border-radius:31px}
+  .phone:after{top:17px;width:70px;height:20px;margin-left:-35px}
+  /* итог */
+  .stats{flex-direction:column;gap:28px;margin-top:32px;padding-top:24px}
+  .stats div{width:auto}.stats b{font-size:60px;line-height:60px}.stats span{width:auto}
+  /* контакты */
+  #contacts{height:auto;padding-bottom:12px}
+  #contacts .tx{position:static;width:auto;padding:56px 20px 4px;gap:20px}
+  #contacts h2{font-size:50px;line-height:50px;letter-spacing:-.8px}
+  #contacts .r a,#contacts .r span{font-size:28px}
+  .p3box{position:relative;inset:auto;height:104vw;margin-top:8px}
+  .p3{width:40vw;height:86.5vw;border-radius:7vw}
+  .p3.a{left:4vw;top:16vw}.p3.b{left:30vw;top:2vw}.p3.c{left:54vw;top:20vw}
+  .p3 .s{inset:1.5vw;border-radius:5.6vw}
+  .p3:after{top:3vw;width:12vw;height:3.4vw;margin-left:-6vw;border-radius:2vw}
+}
 </style></head><body>
 
 <!-- 01 · обложка: сайт в экране листается по скроллу -->
 <div id="pin">
 <section data-canvas id="cover">
-  <div class="tl"><span class="pill">Tatiana Tagmazian</span><span class="pill">Сайт на заказ</span></div>
-  <h1>Мебель<br><i>на заказ</i></h1>
-  <div class="sub">Сайт для мастерской в Ярославле</div>
-  <div class="hint" id="hint">Листайте вниз</div>
-  <div id="scr"><div class="strip" id="strip"><img src="assets/site-1100.jpg" alt=""></div><i class="glare"></i></div>
+  <div class="copy">
+    <div class="tl"><span class="pill">Tatiana Tagmazian</span><span class="pill">Сайт на заказ</span></div>
+    <h1>Мебель<br><i>на заказ</i></h1>
+    <div class="sub">Сайт для мастерской в Ярославле</div>
+    <div class="hint" id="hint">Листайте вниз</div>
+  </div>
+  <div id="stage"><div id="scr"><div class="strip" id="strip"><img src="assets/site-1100.jpg" alt=""></div><i class="glare"></i></div></div>
 </section>
 </div>
 
@@ -215,9 +277,11 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
     <div class="r"><small>Telegram</small><a href="https://t.me/tatiana_tgmzn">@tatiana_tgmzn</a></div>
     <div class="r"><small>Почта</small><a href="mailto:Tanya51rus@gmail.com">Tanya51rus@gmail.com</a></div>
   </div>
-  <div class="p3" style="left:778px;top:169px;transform:rotate(-14deg)"><div class="s"><img src="assets/pf-home-end.jpg" alt=""></div></div>
-  <div class="p3" style="left:938px;top:110px;transform:rotate(8deg)"><div class="s"><img src="assets/pf-home-1.jpg" alt=""></div></div>
-  <div class="p3" style="left:1072px;top:203px;transform:rotate(22deg)"><div class="s"><img src="assets/pf-home-0.jpg" alt=""></div></div>
+  <div class="p3box">
+    <div class="p3 a"><div class="s"><img src="assets/pf-home-end.jpg" alt=""></div></div>
+    <div class="p3 b"><div class="s"><img src="assets/pf-home-1.jpg" alt=""></div></div>
+    <div class="p3 c"><div class="s"><img src="assets/pf-home-0.jpg" alt=""></div></div>
+  </div>
 </section>
 
 <script>
@@ -233,12 +297,14 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 })();
 </script>
 <script>
-// сайт в экране ноутбука листается по скроллу: обложка закреплена, блоки сменяют друг друга с остановками.
-// Движение сглажено инерцией, поэтому рывки колеса мыши не превращаются в рывки картинки.
+// Сайт в экране ноутбука листается по скроллу: обложка закреплена, блоки сменяют друг друга с остановками.
+// Движение сглажено инерцией. Сцена подстраивается под ширину экрана, на телефоне ноутбук крупнее.
 (function(){
-  var pin=document.getElementById('pin'),scr=document.getElementById('scr'),strip=document.getElementById('strip'),hint=document.getElementById('hint');
-  var S=1400/2880, SW=1000, SH=699;
-  var Q=[[1520.32,336.80],[2629.48,300.95],[2560.28,1116.16],[1422.50,1045.67]].map(function(p){return[p[0]*S,p[1]*S]});
+  var pin=document.getElementById('pin'),cover=document.getElementById('cover'),stage=document.getElementById('stage'),
+      scr=document.getElementById('scr'),strip=document.getElementById('strip'),hint=document.getElementById('hint');
+  var SW=1000,SH=699,Z=1;
+  var Q0=[[1520.32,336.80],[2629.48,300.95],[2560.28,1116.16],[1422.50,1045.67]].map(function(p){return[p[0]*1400/2880,p[1]*1400/2880]});
+  var qcx=(Q0[0][0]+Q0[1][0]+Q0[2][0]+Q0[3][0])/4;
   function homography(w,h,q){
     var src=[[0,0],[w,0],[w,h],[0,h]],A=[],b=[];
     for(var i=0;i<4;i++){var x=src[i][0],y=src[i][1],X=q[i][0],Y=q[i][1];
@@ -250,15 +316,33 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
     for(var r3=7;r3>=0;r3--){var sum=b[r3];for(var k2=r3+1;k2<8;k2++)sum-=A[r3][k2]*m[k2];m[r3]=sum/A[r3][r3];}
     return 'matrix3d('+[m[0],m[3],0,m[6],m[1],m[4],0,m[7],0,0,1,0,m[2],m[5],0,1].join(',')+')';
   }
-  scr.style.transform=homography(SW,SH,Q);
-  // остановки: верх каждого блока сайта в пикселях ленты
   var stops=[0,700,1244,2425,2983,3803,4644,5130,5972];
-  var RUN=4400, HOLD=.3;
+  var HOLD=.3,RUN=4400;
   function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
-  function y(p){var seg=p*(stops.length-1),i=Math.min(Math.floor(seg),stops.length-2),f=seg-i;
+  function ypos(p){var seg=p*(stops.length-1),i=Math.min(Math.floor(seg),stops.length-2),f=seg-i;
     var t=f<HOLD?0:ease((f-HOLD)/(1-HOLD));return stops[i]+(stops[i+1]-stops[i])*t;}
+  // подгонка сцены: фон «cover» и экран ноутбука по одной геометрии
+  function layout(){
+    var iw=window.innerWidth;
+    // между телефоном и 1400: десктопная вёрстка уменьшается целиком
+    Z=(iw>=900&&iw<1400)?iw/1400:1;
+    document.documentElement.style.zoom=Z===1?'':Z;
+    var mobile=iw<900;
+    RUN=mobile?2800:4400;
+    stage.style.height=mobile?Math.round(Math.min(iw*1.35,Math.max(380,window.innerHeight-290)))+'px':'';
+    var W=stage.clientWidth,H=stage.clientHeight,s=Math.max(W/1400,H/788);
+    var offX=Math.min(0,Math.max(W-1400*s,W/2-qcx*s)),offY=(H-788*s)/2;
+    stage.style.backgroundSize=(1400*s)+'px '+(788*s)+'px';
+    stage.style.backgroundPosition=offX+'px '+offY+'px';
+    scr.style.transform=homography(SW,SH,Q0.map(function(p){return[p[0]*s+offX,p[1]*s+offY]}));
+    pin.style.height=(cover.offsetHeight+RUN)+'px';
+  }
   var target=0,cur=0,last=0,raf=0;
-  function readTarget(){var top=pin.getBoundingClientRect().top;var p=Math.min(Math.max(-top/RUN,0),1);target=y(p);hint.classList.toggle('off',p>.01);}
+  function readTarget(){
+    var r=pin.getBoundingClientRect();
+    var p=Math.min(Math.max(-r.top/(RUN*Z),0),1);
+    target=ypos(p);hint.classList.toggle('off',p>.01);
+  }
   function frame(now){
     raf=0;var dt=Math.min(now-(last||now),64);last=now;
     cur+=(target-cur)*(1-Math.exp(-dt/110));
@@ -268,8 +352,8 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
   }
   function kick(){readTarget();if(!raf)raf=requestAnimationFrame(frame);}
   window.addEventListener('scroll',kick,{passive:true});
-  window.addEventListener('resize',kick);
-  readTarget();cur=target;strip.style.transform='translate3d(0,'+(-cur)+'px,0)';
+  window.addEventListener('resize',function(){layout();kick()});
+  layout();readTarget();cur=target;strip.style.transform='translate3d(0,'+(-cur)+'px,0)';
 })();
 </script>
 </body></html>
