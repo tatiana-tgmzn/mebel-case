@@ -26,7 +26,7 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 .pill.acc{border-color:rgba(249,222,102,.9);color:var(--y)}
 
 /* 01 обложка: закреплена, сайт в экране листается по скроллу */
-#pin{width:1400px;margin:0 auto;height:3828px;background:#0d0d0d;position:relative}
+#pin{width:1400px;margin:0 auto;height:5188px;background:#0d0d0d;position:relative}
 #pin #cover{position:sticky;top:0;margin:0;overflow:hidden;height:788px;background:#0d0d0d url(scenes/cover-a-nosite.jpg) center/cover}
 #cover .tl{position:absolute;left:64px;top:56px;display:flex;gap:10px;z-index:3}
 #cover h1{position:absolute;left:64px;top:190px;width:460px;font-family:Manrope,sans-serif;font-weight:800;font-size:76px;line-height:74px;letter-spacing:-1.5px;z-index:3}
@@ -34,9 +34,9 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 #cover .sub{position:absolute;left:68px;top:372px;font-size:17px;z-index:3}
 #cover .hint{position:absolute;left:68px;top:430px;font-size:11px;font-weight:400;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.6);z-index:3;transition:opacity .4s}
 #cover .hint.off{opacity:0}
-#scr{position:absolute;left:0;top:0;width:1440px;height:1007px;transform-origin:0 0;overflow:hidden;border-radius:10px;background:#202020;z-index:2}
-#scr .strip{width:1440px;will-change:transform}
-#scr .strip img{width:1557px;margin-left:-58px;display:block}
+#scr{position:absolute;left:0;top:0;width:1000px;height:699px;transform-origin:0 0;overflow:hidden;background:#202020;z-index:2;contain:strict;backface-visibility:hidden}
+#scr .strip{width:1000px;will-change:transform;backface-visibility:hidden}
+#scr .strip img{width:1081px;margin-left:-40px;display:block}
 #scr .glare{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.08),rgba(255,255,255,0) 42%)}
 
 /* 02 задача */
@@ -121,7 +121,7 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
   <h1>Мебель<br><i>на заказ</i></h1>
   <div class="sub">Сайт для мастерской в Ярославле</div>
   <div class="hint" id="hint">Листайте вниз</div>
-  <div id="scr"><div class="strip" id="strip"><img src="assets/site-full.jpg" alt=""></div><i class="glare"></i></div>
+  <div id="scr"><div class="strip" id="strip"><img src="assets/site-1100.jpg" alt=""></div><i class="glare"></i></div>
 </section>
 </div>
 
@@ -233,12 +233,12 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
 })();
 </script>
 <script>
-// сайт в экране ноутбука листается по скроллу: обложка закреплена, блоки сменяют друг друга с остановками
+// сайт в экране ноутбука листается по скроллу: обложка закреплена, блоки сменяют друг друга с остановками.
+// Движение сглажено инерцией, поэтому рывки колеса мыши не превращаются в рывки картинки.
 (function(){
   var pin=document.getElementById('pin'),scr=document.getElementById('scr'),strip=document.getElementById('strip'),hint=document.getElementById('hint');
-  var S=1400/2880, SW=1440, SH=1007;
+  var S=1400/2880, SW=1000, SH=699;
   var Q=[[1520.32,336.80],[2629.48,300.95],[2560.28,1116.16],[1422.50,1045.67]].map(function(p){return[p[0]*S,p[1]*S]});
-  // перспектива: прямоугольник SW×SH -> четырёхугольник экрана ноутбука
   function homography(w,h,q){
     var src=[[0,0],[w,0],[w,h],[0,h]],A=[],b=[];
     for(var i=0;i<4;i++){var x=src[i][0],y=src[i][1],X=q[i][0],Y=q[i][1];
@@ -252,17 +252,24 @@ section[data-canvas]{width:1400px;margin:0 auto;position:relative;overflow:hidde
   }
   scr.style.transform=homography(SW,SH,Q);
   // остановки: верх каждого блока сайта в пикселях ленты
-  var stops=[0,1008,1791,3492,4296,5476,6688,7388,8600];
-  var RUN=3040, HOLD=.55, ticking=false;
-  function ease(t){return t*t*(3-2*t)}
+  var stops=[0,700,1244,2425,2983,3803,4644,5130,5972];
+  var RUN=4400, HOLD=.3;
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
   function y(p){var seg=p*(stops.length-1),i=Math.min(Math.floor(seg),stops.length-2),f=seg-i;
     var t=f<HOLD?0:ease((f-HOLD)/(1-HOLD));return stops[i]+(stops[i+1]-stops[i])*t;}
-  function update(){ticking=false;var top=pin.getBoundingClientRect().top;
-    var p=Math.min(Math.max(-top/RUN,0),1);
-    strip.style.transform='translate3d(0,'+(-y(p)).toFixed(1)+'px,0)';
-    hint.classList.toggle('off',p>.015);}
-  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
-  window.addEventListener('resize',update);update();
+  var target=0,cur=0,last=0,raf=0;
+  function readTarget(){var top=pin.getBoundingClientRect().top;var p=Math.min(Math.max(-top/RUN,0),1);target=y(p);hint.classList.toggle('off',p>.01);}
+  function frame(now){
+    raf=0;var dt=Math.min(now-(last||now),64);last=now;
+    cur+=(target-cur)*(1-Math.exp(-dt/110));
+    if(Math.abs(target-cur)<.15)cur=target;
+    strip.style.transform='translate3d(0,'+(-cur).toFixed(2)+'px,0)';
+    if(cur!==target)raf=requestAnimationFrame(frame);else last=0;
+  }
+  function kick(){readTarget();if(!raf)raf=requestAnimationFrame(frame);}
+  window.addEventListener('scroll',kick,{passive:true});
+  window.addEventListener('resize',kick);
+  readTarget();cur=target;strip.style.transform='translate3d(0,'+(-cur)+'px,0)';
 })();
 </script>
 </body></html>
